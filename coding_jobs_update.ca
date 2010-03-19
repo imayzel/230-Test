@@ -1,0 +1,24 @@
+On error resume next
+Const ForReading = 1
+Const ForWriting = 2
+
+arrCustomActionData = Split(session.property("CustomActionData"), ",", -1, 1)
+
+strINSTALLDIR=arrCustomActionData(0)
+str_ftp_path=arrCustomActionData(1)
+
+strSourceFile_CONFIG=strINSTALLDIR & "\Jobs.xml"
+
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+Set objFile_l5n = objFSO.OpenTextFile(strSourceFile_CONFIG, ForReading)
+
+
+strText_s = objFile_l5n.ReadAll
+objFile_l5n.Close
+
+strNewText1 = Replace(strText_s, "\\[].hdc.mdsol.com\[]", str_ftp_path)
+
+Set objFile2 = objFSO.CreateTextFile(strSourceFile_CONFIG, ForWriting)
+objFile2.WriteLine strNewText1
+objFile2.Close

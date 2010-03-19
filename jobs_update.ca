@@ -1,0 +1,63 @@
+On error resume next
+Const ForReading = 1
+Const ForWriting = 2
+
+arrCustomActionData = Split(session.property("CustomActionData"), ",", -1, 1)
+
+strINSTALLDIR=arrCustomActionData(0)
+str_Client_Name=arrCustomActionData(1)
+str_ftp_path=arrCustomActionData(2)
+
+strSourceFile_CONFIG=strINSTALLDIR & "\Jobs.xml"
+
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+Set objFile_l5n = objFSO.OpenTextFile(strSourceFile_CONFIG, ForReading)
+
+
+strText_s = objFile_l5n.ReadAll
+objFile_l5n.Close
+
+strNewText1 = Replace(strText_s, "C:\Rave Status Export", "C:\Rave Status Export " & str_Client_Name)
+strNewText2 = Replace(strNewText1, "\\[].hdc.mdsol.com\[]", str_ftp_path)
+strNewText3 = Replace(strNewText2,  "Rave-Status-Export", "Rave-Status-Export " & str_Client_Name)
+
+
+strNewText4 = Replace(strNewText3, "65e04443-41b9-4fe7-bc82-9ae67a474dc3", fnNewGuid)
+strNewText5 = Replace(strNewText4, "19a408c2-4172-4a2d-8153-108170dcf445", fnNewGuid)
+strNewText6 = Replace(strNewText5, "602399d3-da69-4dda-9050-f22273f6100f", fnNewGuid)
+strNewText7 = Replace(strNewText6, "24556f91-4a3e-447b-9a89-c8d7af630a99", fnNewGuid)
+strNewText8 = Replace(strNewText7, "7c402e48-039f-4b6e-910d-6687aa8bfff3", fnNewGuid)
+strNewText9 = Replace(strNewText8, "5b76ddf9-aafe-4e86-b2cb-b8e02efc54de", fnNewGuid)
+strNewText10 = Replace(strNewText9, "cb820016-2c0f-456e-993f-00c63431a3b7", fnNewGuid)
+strNewText11 = Replace(strNewText10, "f57276c2-81c9-44cc-9dc8-7ac93683682e", fnNewGuid)
+strNewText12 = Replace(strNewText11, "7fbc005e-e7c5-405a-82d2-980110810bf3", fnNewGuid)
+strNewText13 = Replace(strNewText12, "cdc4b346-ffba-498d-b336-169c48561a89", fnNewGuid)
+strNewText14 = Replace(strNewText13, "23e9281a-6522-433f-9742-20fc65114f5f", fnNewGuid)
+strNewText15 = Replace(strNewText14, "e6bea505-ff1b-4083-afe8-3a7c24dc6562", fnNewGuid)
+strNewText16 = Replace(strNewText15, "93e3f1b7-d389-414a-a584-7f07b77287b6", fnNewGuid)
+strNewText17 = Replace(strNewText16, "0b6e8706-c00a-4061-9d95-c35a2be2abec", fnNewGuid)
+strNewText18 = Replace(strNewText17, "8226302c-1520-4ff6-a1cd-352bdda0cc12", fnNewGuid)
+strNewText19 = Replace(strNewText18, "e9f7b689-72eb-4f1e-8a2f-4f96f6e0487c", fnNewGuid)
+strNewText20 = Replace(strNewText19, "6b20aedf-9557-437a-bca8-aeca4da8f0cc", fnNewGuid)
+strNewText21 = Replace(strNewText20, "5ba18a34-c37d-414b-9267-aee3b2e64281", fnNewGuid)
+strNewText22 = Replace(strNewText21, "5f2bb1c6-f7ba-4a0b-aeea-03067cb62f5c", fnNewGuid)
+strNewText23 = Replace(strNewText22, "cdb6dcbc-c682-451a-8d0d-7f79b09c6a05", fnNewGuid)
+strNewText24 = Replace(strNewText23, "b3de958c-783d-4ac9-bb99-5d20af9f60e5", fnNewGuid)
+strNewText25 = Replace(strNewText24, "a90f40b4-30d8-4b1a-8e67-bfc903754ad3", fnNewGuid)
+strNewText26 = Replace(strNewText25, "7033af7b-ff89-4833-af4d-0215abc55024", fnNewGuid)
+strNewText27 = Replace(strNewText26, "8e29916b-bb21-4954-b056-c97ed09392ac", fnNewGuid)
+strNewText28 = Replace(strNewText27, "f87800f1-e895-412c-84fb-9bed2bd1908f", fnNewGuid)
+strNewText29 = Replace(strNewText28, "7033af7b-ff89-4833-af4d-0215abc55024", fnNewGuid)
+strNewText30 = Replace(strNewText29, "1b90b26e-aa19-44a4-b185-eae402cbe255", fnNewGuid)
+
+Set objFile2 = objFSO.CreateTextFile(strSourceFile_CONFIG, ForWriting)
+objFile2.WriteLine strNewText30
+objFile2.Close
+
+Function fnNewGuid()
+	Set TypeLib = CreateObject("Scriptlet.TypeLib")
+	strNewGuid = TypeLib.Guid
+	fnNewGuid = Left(strNewGuid, Len(strNewGuid)-2)
+	
+End Function
