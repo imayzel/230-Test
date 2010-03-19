@@ -2,6 +2,7 @@ On error resume next
 Const ForReading = 1
 Const ForWriting = 2
 
+
 arrCustomActionData = Split(session.property("CustomActionData"), ",", -1, 1)
 
 strINSTALLDIR=arrCustomActionData(0)
